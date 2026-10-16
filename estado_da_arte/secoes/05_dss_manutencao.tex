@@ -1,4 +1,22 @@
 \section{Sistemas de Apoio à Decisão em Manutenção}
+\label{sec:sistemas}
+
 \subsection{Arquiteturas e componentes}
-\subsection{Integração de dados (CMMS, ERP, SCADA, IoT)}
+Componentes típicos de um SAD (dados, modelos, interface) e como aparecem nos trabalhos revistos. Muitos seguem uma arquitetura em camadas: recolha de dados, análise e previsão, e decisão~\cite{rastogi2024}.
+
+\subsection{Integração de dados}
+Fontes: CMMS (ordens de trabalho), ERP (custos, stocks), SCADA e sensores IoT (estado dos equipamentos). Problemas de qualidade e interoperabilidade.
+
+\subsection{Previsão de falhas e vida útil restante}
+Modelos de aprendizagem automática para deteção, diagnóstico e prognóstico (RUL): LSTM, Bi-LSTM, modelos baseados em árvores, etc. Datasets de referência (ex.: C-MAPSS, AI4I 2020).
+
+\subsection{Abordagens híbridas: previsão e decisão multicritério}
+Rastogi et al.~\cite{rastogi2024} propõem o modelo IMS\&DS, que combina a RUL estimada por um sistema de PHM com uma soma ponderada de quatro fatores normalizados (taxa de degradação, RUL, criticidade e consequência da falha), obtendo uma prioridade por componente. O modelo trata a incerteza da RUL através de um intervalo de confiança e considera o tempo de alocação de recursos, o tempo de reparação e uma margem para atrasos.
+Acrescentar outros trabalhos híbridos.
+
+\subsection{Abordagens dinâmicas: aprendizagem por reforço}
+Luo~\cite{luo2026} modela a priorização como um processo de decisão de Markov e usa uma Deep Q-Network para aprender uma política de manutenção, com uma recompensa que combina disponibilidade, custo e risco de segurança. Ao contrário das abordagens multicritério estáticas, considera o efeito das decisões atuais sobre o estado futuro do sistema.
+Acrescentar outros trabalhos com aprendizagem por reforço ou otimização dinâmica.
+
 \subsection{Casos de aplicação industrial}
+Descrever casos reais (setor, dados, resultados). Incluir aqui, com mais detalhe, o sistema escolhido para a aula invertida.

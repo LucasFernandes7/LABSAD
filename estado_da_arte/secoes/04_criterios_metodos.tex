@@ -1,6 +1,20 @@
 \section{Critérios e Métodos de Priorização}
+\label{sec:criterios}
+
 \subsection{Critérios de priorização}
-Criticidade, risco, impacto na produção, segurança, custo, histórico de falhas.
-\subsection{Métodos multicritério (MCDM)}
-AHP, TOPSIS, VIKOR, PROMETHEE, BWM e variantes \textit{fuzzy}.
+Apresentar os critérios mais usados na literatura, idealmente numa pequena tabela com as referências que usam cada um.
+Os critérios mais recorrentes incluem a criticidade do equipamento, o impacto na segurança, o impacto na produção, o custo da intervenção, a probabilidade de falha, o histórico de falhas, a redundância e a disponibilidade de recursos. Rastogi et al.~\cite{rastogi2024} identificam nove fatores de avaliação, embora apenas quatro sejam efetivamente usados no seu modelo.
+
+\subsection{Análise de criticidade e FMEA}
+Matrizes de criticidade, FMEA e o Risk Priority Number (RPN = severidade $\times$ ocorrência $\times$ deteção); limitações conhecidas do RPN.
+
+\subsection{Métodos de decisão multicritério}
+Para cada método, uma ou duas frases sobre como funciona e um exemplo de aplicação à manutenção:
+\begin{itemize}
+  \item \textbf{Definição de pesos:} AHP, BWM.
+  \item \textbf{Ordenação de alternativas:} soma ponderada, TOPSIS, VIKOR, PROMETHEE, ELECTRE.
+  \item \textbf{Variantes fuzzy:} tratamento da incerteza nos julgamentos dos especialistas.
+\end{itemize}
+
 \subsection{Otimização e escalonamento}
+Programação matemática, meta-heurísticas (ex.: PSO, algoritmos genéticos) e escalonamento com restrições de recursos e janelas de paragem.

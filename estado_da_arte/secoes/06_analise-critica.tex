@@ -1,0 +1,36 @@
+\section{Análise Crítica, Lacunas e Tendências}
+\label{sec:analise}
+ 
+\subsection{Comparação das abordagens}
+ 
+A Tabela~\ref{tab:comparacao} resume os trabalhos analisados. As abordagens dividem-se em dois grupos. O primeiro combina a previsão do estado dos equipamentos com uma ordenação multicritério estática, como o modelo de Rastogi et al.~\cite{rastogi2024}. Estas abordagens são transparentes e fáceis de aplicar, mas dependem de pesos definidos pelos autores e produzem uma ordenação válida apenas para o momento em que é calculada. O segundo grupo trata a priorização como um problema sequencial, como o modelo de aprendizagem por reforço de Luo~\cite{luo2026}. Estas abordagens consideram o efeito das decisões atuais no estado futuro do sistema, mas funcionam como uma caixa preta e exigem um ambiente de simulação difícil de construir e validar.
+ 
+\begin{table}[htbp]
+\centering
+\caption{Comparação dos trabalhos analisados.}
+\label{tab:comparacao}
+\begin{tabular}{|p{1.1cm}|p{3.0cm}|p{2.3cm}|p{4.0cm}|}
+\hline
+\textbf{Ref.} & \textbf{Método} & \textbf{Dados e validação} & \textbf{Limitações} \\
+\hline
+\cite{rastogi2024} & Previsão da RUL e soma ponderada de fatores, com restrições de recursos & Caso ilustrativo de um sistema elétrico & Pesos hipotéticos; sem método multicritério formal; segurança fora do modelo \\
+\hline
+\cite{luo2026} & Aprendizagem por reforço (Deep Q-Network) & Dataset público e caso de um parque eólico & Ambiente pouco descrito; comparações discutíveis; sem explicação das decisões \\
+\hline
+\end{tabular}
+\end{table}
+ 
+\subsection{Lacunas identificadas}
+ 
+Da análise realizada resultam as seguintes lacunas:
+\begin{itemize}
+  \item \textbf{Pesos pouco justificados.} Os pesos dos critérios são muitas vezes definidos pelos autores, sem recurso a métodos estruturados de elicitação junto dos especialistas~\cite{rastogi2024}.
+  \item \textbf{Segurança tratada como compensável.} A segurança surge como mais um peso, o que permite que um ganho em custo ou disponibilidade compense um risco para as pessoas~\cite{rastogi2024,luo2026}.
+  \item \textbf{Validação limitada.} Os resultados assentam em dados ilustrativos ou pouco documentados, sem comparação com as práticas usadas na indústria.
+  \item \textbf{Falta de explicação.} O decisor recebe uma pontuação ou uma ação recomendada, mas não percebe porque é que uma intervenção ficou à frente de outra~\cite{luo2026}.
+  \item \textbf{Decisão individual.} As abordagens assumem um único decisor, embora a priorização envolva normalmente as áreas de manutenção, produção e segurança.
+\end{itemize}
+ 
+\subsection{Tendências}
+ 
+A literatura aponta para a integração destes sistemas com gémeos digitais, que permitem testar decisões num modelo virtual do equipamento antes de as aplicar. Destaca-se também o uso de técnicas de inteligência artificial explicável, que tornam as recomendações compreensíveis para o decisor, e a passagem da manutenção preditiva para a prescritiva, em que o sistema não se limita a prever a falha e recomenda a ação a tomar. Por fim, os sistemas multiagente e de decisão em grupo surgem como forma de conciliar os interesses das várias áreas envolvidas.

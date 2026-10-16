@@ -1,0 +1,67 @@
+\section{Proposta}
+\label{sec:proposta}
+ 
+Propõe-se um Sistema de Apoio à Decisão que ajuda o responsável de manutenção a decidir por que ordem realizar as intervenções pendentes. O sistema combina a previsão da probabilidade de falha dos equipamentos com um método de decisão multicritério e apresenta uma ordenação justificada. Pretende responder às lacunas identificadas na Secção~\ref{sec:analise}: pesos definidos pelos decisores através de um método estruturado, segurança tratada como restrição obrigatória e explicação de cada recomendação.
+ 
+\subsection{Contextualização do sistema}
+ 
+\begin{itemize}
+  \item \textbf{Destinatários.} O utilizador principal é o gestor ou planeador de manutenção. Os responsáveis de produção e de segurança participam na definição da importância dos critérios.
+  \item \textbf{Tipo de problema.} Trata-se de um problema semiestruturado: parte da informação é quantitativa (dados de sensores, custos, tempos de reparação) e parte depende do julgamento dos especialistas.
+  \item \textbf{Decisão síncrona e assíncrona.} A priorização é feita de forma assíncrona, por exemplo no início de cada dia ou turno, e é recalculada sempre que surge uma nova avaria urgente.
+  \item \textbf{Critérios.} A segurança é um critério obrigatório: uma intervenção com risco para pessoas fica sempre no topo da lista. Os restantes critérios podem ser relaxados e compensam-se entre si: impacto na produção, probabilidade de falha, custo, duração da intervenção e disponibilidade de técnicos e peças.
+  \item \textbf{Aspetos sociais.} As várias áreas da empresa têm prioridades diferentes. O sistema permite que cada uma indique a importância que dá aos critérios e agrega essas opiniões.
+  \item \textbf{Sensores.} São usados dados de condição dos equipamentos (por exemplo, temperatura, vibração e binário). No protótipo será utilizado um dataset público de manutenção preditiva.
+  \item \textbf{Interface.} Uma aplicação web que mostra o ranking das intervenções, a explicação de cada posição e permite testar cenários alterando os pesos dos critérios.
+  \item \textbf{Tecnologias.} Aprendizagem automática para estimar a probabilidade de falha, o método AHP para definir os pesos dos critérios e o método TOPSIS para ordenar as intervenções.
+\end{itemize}
+ 
+\subsection{Requisitos funcionais}
+ 
+\begin{itemize}
+  \item \textbf{RF01.} Registar e importar as intervenções pendentes e os dados dos equipamentos.
+  \item \textbf{RF02.} Estimar a probabilidade de falha de cada equipamento a partir dos dados de condição.
+  \item \textbf{RF03.} Permitir que os decisores definam a importância dos critérios por comparação par a par.
+  \item \textbf{RF04.} Colocar no topo da lista as intervenções com risco para a segurança.
+  \item \textbf{RF05.} Gerar a ordenação das intervenções pendentes.
+  \item \textbf{RF06.} Explicar a posição de cada intervenção, indicando os critérios que mais contribuíram.
+  \item \textbf{RF07.} Permitir a análise de sensibilidade, mostrando como o ranking muda quando se alteram os pesos.
+  \item \textbf{RF08.} Guardar o histórico das decisões tomadas.
+\end{itemize}
+ 
+\subsection{Requisitos não funcionais}
+ 
+\begin{itemize}
+  \item \textbf{RNF01 -- Desempenho.} O ranking deve ser gerado em poucos segundos para algumas centenas de intervenções.
+  \item \textbf{RNF02 -- Usabilidade.} A interface deve ser compreensível por utilizadores sem conhecimentos de decisão multicritério.
+  \item \textbf{RNF03 -- Transparência.} Todas as recomendações devem ser acompanhadas de uma justificação.
+  \item \textbf{RNF04 -- Interoperabilidade.} O sistema deve importar dados em formatos comuns, como CSV, e poder ligar-se a um CMMS.
+  \item \textbf{RNF05 -- Segurança.} O acesso deve exigir autenticação, com perfis diferentes para gestores e restantes utilizadores.
+\end{itemize}
+ 
+\subsection{Arquitetura conceptual}
+ 
+A arquitetura proposta (Fig.~\ref{fig:arquitetura}) organiza-se em cinco módulos:
+\begin{enumerate}
+  \item \textbf{Módulo de dados.} Recolhe e prepara a informação dos sensores, das ordens de trabalho e dos custos e stocks.
+  \item \textbf{Módulo preditivo.} Estima a probabilidade de falha de cada equipamento com um modelo de aprendizagem automática.
+  \item \textbf{Módulo de pesos.} Recolhe as comparações dos decisores e calcula os pesos dos critérios com o AHP.
+  \item \textbf{Módulo de decisão.} Aplica primeiro a restrição de segurança e depois ordena as restantes intervenções com o TOPSIS.
+  \item \textbf{Interface.} Apresenta o ranking, a explicação de cada posição e a análise de sensibilidade.
+\end{enumerate}
+ 
+A separação entre o módulo preditivo e o módulo de decisão permite trocar o modelo de previsão sem alterar a lógica de priorização. O AHP foi escolhido por ser um método conhecido, que verifica a consistência dos julgamentos e se adapta à participação de vários decisores. O TOPSIS foi escolhido por ser simples de explicar: cada intervenção é avaliada pela proximidade a uma solução ideal. Tratar a segurança como restrição, e não como peso, impede que um risco para as pessoas seja compensado por ganhos noutros critérios.
+ 
+\begin{figure}[htbp]
+\centering
+% Desenhar o diagrama (draw.io, PowerPoint...) e exportar como PDF ou PNG
+% para a pasta figuras/ com o nome arquitetura.
+\fbox{\parbox{0.8\textwidth}{\centering\vspace{1cm}
+Dados $\rightarrow$ Previsão $\rightarrow$ Decisão (segurança + TOPSIS) $\rightarrow$ Interface\\[0.3cm]
+Pesos (AHP) $\rightarrow$ Decisão
+\vspace{1cm}}}
+% Quando tiverem a imagem, substituir o \fbox acima por:
+% \includegraphics[width=\textwidth]{figuras/arquitetura}
+\caption{Arquitetura conceptual do sistema proposto.}
+\label{fig:arquitetura}
+\end{figure}
