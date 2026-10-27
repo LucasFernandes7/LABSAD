@@ -22,7 +22,7 @@ We propose a decision support system that helps the maintenance manager decide t
 
 Table~\ref{tab:requirements} lists the functional (FR) and non-functional (NFR) requirements and, where applicable, the gap from Section~\ref{sec:gaps} that each one addresses.
 
-\begin{table}[!b]
+\begin{table}[!htbp]
 \centering
 \caption{Functional and non-functional requirements of the proposed system.}
 \label{tab:requirements}
@@ -54,7 +54,11 @@ NFR05 & Security: require authentication, with separate profiles for managers an
 
 The architecture (Fig.~\ref{fig:arquitetura}) has five modules. The \textbf{data module} collects condition data, work orders, costs and stock levels. The \textbf{predictive module} estimates the failure probability of each asset with a machine learning model. The \textbf{weighting module} collects the pairwise comparisons of each stakeholder, checks their consistency and aggregates them into a single set of AHP weights. The \textbf{decision module} first separates the interventions that involve a safety risk and then ranks all interventions with TOPSIS, keeping the safety-critical ones at the top. The \textbf{interface} presents the ranking, the explanation of each position and the sensitivity analysis, and records the decision taken, which feeds back into the data module.
 
-\begin{figure}[t]
+
+
+These choices respond directly to the review. Keeping the predictive and decision modules separate allows the prediction model to be replaced without changing the prioritisation logic, as in the hybrid studies of Section~\ref{sec:criteria-methods}. AHP was chosen because it is widely used in the reviewed studies, checks the consistency of judgements and supports group elicitation; the consistency warning in FR03 follows the low share of consistent expert judgements reported in Section~\ref{sec:mcdm}. TOPSIS was chosen because it is the most frequent ranking method in the sample and its result is easy to explain as the closeness of each intervention to an ideal one. Treating safety as a constraint rather than a weight prevents a risk to people from being offset by gains in other criteria, which is the main weakness found in the compensatory models reviewed.
+
+\begin{figure}[H]
 \centering
 \begin{tikzpicture}[
   font=\scriptsize,
@@ -80,5 +84,3 @@ The architecture (Fig.~\ref{fig:arquitetura}) has five modules. The \textbf{data
 \caption{Conceptual architecture of the proposed system.}
 \label{fig:arquitetura}
 \end{figure}
-
-These choices respond directly to the review. Keeping the predictive and decision modules separate allows the prediction model to be replaced without changing the prioritisation logic, as in the hybrid studies of Section~\ref{sec:criteria-methods}. AHP was chosen because it is widely used in the reviewed studies, checks the consistency of judgements and supports group elicitation; the consistency warning in FR03 follows the low share of consistent expert judgements reported in Section~\ref{sec:mcdm}. TOPSIS was chosen because it is the most frequent ranking method in the sample and its result is easy to explain as the closeness of each intervention to an ideal one. Treating safety as a constraint rather than a weight prevents a risk to people from being offset by gains in other criteria, which is the main weakness found in the compensatory models reviewed.
