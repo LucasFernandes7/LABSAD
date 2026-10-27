@@ -1,2 +1,10 @@
-\section{Introdução}
-Enquadramento, motivação, objetivos da revisão e estrutura do artigo.
+\section{Introduction}
+\label{sec:intro}
+
+Maintenance managers rarely face a single failure at a time. On a typical day, corrective work orders, preventive tasks and alerts from condition monitoring compete for the same technicians, spare parts and production stoppages, and the order in which they are handled affects safety, output and cost. In many plants this order is still set by experience or by simple urgency codes in the maintenance management system, which makes it hard to justify and to apply consistently across shifts and departments~\cite{astepe2021,gopalakrishnan2022}.
+
+The spread of sensors and machine learning in Industry~4.0 has improved the ability to predict failures, but a prediction does not tell the manager which intervention to perform first when several are pending. Turning failure predictions, costs, resources and expert knowledge into a justified order of interventions is a multi-criteria decision problem, and decision support systems (DSS) are a natural way to address it.
+
+This paper has two objectives. The first is to review how recent studies prioritise industrial maintenance interventions: which criteria they use, which methods turn those criteria into a priority order, how the resulting systems are built and how they were validated. The second is to use the gaps found in that review to propose the conceptual architecture of a DSS for this problem.
+
+The paper is organised as follows. Section~\ref{sec:methodology} describes the review method and Section~\ref{sec:background} introduces the main maintenance strategies. Section~\ref{sec:criteria-methods} analyses the prioritisation criteria and methods, Section~\ref{sec:systems} the architecture and validation of the systems, and Section~\ref{sec:analysis} compares the approaches and identifies gaps and trends. Section~\ref{sec:proposta} presents the proposed system and Section~\ref{sec:conclusions} concludes.

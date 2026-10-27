@@ -1,22 +1,41 @@
-\section{Sistemas de Apoio à Decisão em Manutenção}
-\label{sec:sistemas}
+\section{Decision Support Systems for Maintenance Prioritisation}
+\label{sec:systems}
 
-\subsection{Arquiteturas e componentes}
-Componentes típicos de um SAD (dados, modelos, interface) e como aparecem nos trabalhos revistos. Muitos seguem uma arquitetura em camadas: recolha de dados, análise e previsão, e decisão~\cite{rastogi2024}.
+This section addresses RQ3, on architecture, data and interaction with the decision-maker, and RQ4, on validation.
 
-\subsection{Integração de dados}
-Fontes: CMMS (ordens de trabalho), ERP (custos, stocks), SCADA e sensores IoT (estado dos equipamentos). Problemas de qualidade e interoperabilidade.
+\subsection{Architecture, Data and Interaction}
+\label{sec:sys-architecture}
 
-\subsection{Previsão de falhas e vida útil restante}
-Modelos de aprendizagem automática para deteção, diagnóstico e prognóstico (RUL): LSTM, Bi-LSTM, modelos baseados em árvores, etc. Datasets de referência (ex.: C-MAPSS, AI4I 2020).
+A DSS combines data, models and an interface through which the decision-maker uses the results. The included studies cover these components to very different degrees. Only nine deliver an implemented tool or pipeline, such as an offshore painting prototype with 3D visualisation~\cite{rios2024}, a MATLAB tool linking diagnosis, prediction and prescription~\cite{wittbrodt2026}, or an end-to-end pipeline from telemetry ingestion to a MILP schedule~\cite{danach2026}; the others at this level are~\cite{gao2024,wehbi2026,darko2026,astepe2021,tang2026,li2027}. Thirteen propose a framework or layered architecture without a complete system~\cite{delgado2026,gopalakrishnan2022,rios2025,hall2021,dui2025,dui2026,zhou2024,geng2022,panwar2021,bahadir2026,bahrami2021,shaulagara2023,moradi2024}, and nine contribute only a method~\cite{ozcan2021,bulut2021,yang2021,schulze2022,enjavimadar2022,woller2023,qiu2026,hedayatnia2025,bi2022}. Described architectures follow the same layers (data acquisition, analysis, decision and presentation), and only five studies include a feedback loop or rolling horizon that revises priorities after interventions~\cite{gopalakrishnan2022,delgado2026,rios2025,hall2021,danach2026}.
 
-\subsection{Abordagens híbridas: previsão e decisão multicritério}
-Rastogi et al.~\cite{rastogi2024} propõem o modelo IMS\&DS, que combina a RUL estimada por um sistema de PHM com uma soma ponderada de quatro fatores normalizados (taxa de degradação, RUL, criticidade e consequência da falha), obtendo uma prioridade por componente. O modelo trata a incerteza da RUL através de um intervalo de confiança e considera o tempo de alocação de recursos, o tempo de reparação e uma margem para atrasos.
-Acrescentar outros trabalhos híbridos.
+The data come from expert judgement, computerised maintenance management system (CMMS) and enterprise resource planning (ERP) records, MES and PLC production data, condition monitoring and engineering models such as grid simulators. Only three studies use public benchmarks~\cite{tang2026,woller2023,danach2026}, case data are often confidential~\cite{rios2025,wittbrodt2026,danach2026,li2027}, and some models rely on assumed parameters~\cite{schulze2022,dui2025,geng2022}. Integration with the CMMS is recommended but rarely achieved~\cite{delgado2026,enjavimadar2022}, and data quality is a recurring obstacle: manually recorded CMMS data underestimated stoppages compared with MES data~\cite{gopalakrishnan2022}, and historical priorities used for training contained errors~\cite{astepe2021}.
 
-\subsection{Abordagens dinâmicas: aprendizagem por reforço}
-Luo~\cite{luo2026} modela a priorização como um processo de decisão de Markov e usa uma Deep Q-Network para aprender uma política de manutenção, com uma recompensa que combina disponibilidade, custo e risco de segurança. Ao contrário das abordagens multicritério estáticas, considera o efeito das decisões atuais sobre o estado futuro do sistema.
-Acrescentar outros trabalhos com aprendizagem por reforço ou otimização dinâmica.
+\label{sec:sys-interaction}
+Interaction with the decision-maker receives little attention. The output is usually a ranked list, a criticality class or a schedule, at most shown as a Gantt chart or a two-dimensional map~\cite{geng2022,gao2024,hedayatnia2025}. Only Rios et al.~\cite{rios2024} let the user compare planning strategies, and acceptance was assessed through focus groups in two studies~\cite{gopalakrishnan2022,rios2024}. Explainability, assessed during extraction, is full in eleven studies~\cite{darko2026,panwar2021,bahadir2026,gopalakrishnan2022,rios2025,schulze2022,danach2026,bahrami2021,hall2021,shaulagara2023,zhou2024}, partial in seventeen and absent in three~\cite{woller2023,li2027,bi2022}. It usually comes from the transparency of the method (published weights, rules or objective terms) rather than from a mechanism designed for the user; only Danach et al.~\cite{danach2026} link each scheduled intervention to the sensor variables behind it, through SHAP values. Experts take part only in eliciting weights~\cite{panwar2021,rios2025,qiu2026,moradi2024}, and no system supports a group decision while the plan is made.
 
-\subsection{Casos de aplicação industrial}
-Descrever casos reais (setor, dados, resultados). Incluir aqui, com mais detalhe, o sistema escolhido para a aula invertida.
+\subsection{Validation and Industrial Application}
+\label{sec:sys-validation}
+
+All 31 studies use real industrial data, as required by E10, mainly from energy (11 studies), manufacturing (11) and oil and gas (6), with single cases in construction equipment, mining and aviation. Table~\ref{tab:validation} groups them by type of validation.
+
+\begin{table}[htbp]
+\centering
+\caption{Types of validation in the included studies ($n$ = number of studies).}
+\label{tab:validation}
+\scriptsize
+\begin{tabular}{|>{\raggedright\arraybackslash}p{2.5cm}|>{\raggedright\arraybackslash}p{4.1cm}|>{\raggedright\arraybackslash}p{3.5cm}|c|}
+\hline
+\textbf{Type} & \textbf{Description} & \textbf{Studies} & \textbf{n} \\
+\hline
+Field implementation & Recommendations applied in the plant; indicators compared before and after & \cite{ozcan2021,bulut2021,delgado2026,hall2021,wittbrodt2026,hedayatnia2025} & 6 \\
+\hline
+Comparison with current practice & Proposed plan compared with the company's plan or with expert decisions on the same data & \cite{rios2025,rios2024,enjavimadar2022,moradi2024,wehbi2026,li2027,gao2024,shaulagara2023,bi2022,bahadir2026,astepe2021} & 11 \\
+\hline
+Comparison with other methods & Same case solved with alternative methods or policies & \cite{panwar2021,bahrami2021,qiu2026,geng2022,zhou2024,danach2026,tang2026,darko2026} & 8 \\
+\hline
+Simulation or benchmark & Simulation model of the real system or public benchmark instances & \cite{yang2021,gopalakrishnan2022,dui2025,dui2026,schulze2022,woller2023} & 6 \\
+\hline
+\end{tabular}
+\end{table}
+
+Only six studies report results after applying the recommendations in the plant, and the evidence is limited: a year without failures in critical hydroelectric equipment~\cite{ozcan2021,bulut2021}, indicators over a six-month pilot~\cite{delgado2026}, higher availability in a cement mill~\cite{hall2021}, one executed scenario~\cite{wittbrodt2026} and three inspected circuit breakers~\cite{hedayatnia2025}. None uses a control group, so the improvement cannot be separated from other changes. The largest group compares the proposal with current practice on the same data; Rios et al.~\cite{rios2025}, for example, allocate about twice as much effort to critical assets with the same man-hours, and Wehbi et al.~\cite{wehbi2026} reduce total service time by about 42\%. These comparisons are retrospective, so the effect on failures and costs remains an estimate. Comparisons between methods often use weak baselines, such as first-fault-first-repair~\cite{geng2022} or a purely reactive policy~\cite{danach2026}, and statistical tests are rare~\cite{tang2026,gopalakrishnan2022,li2027}. Although all studies use real data, few provide strong evidence that prioritisation improved maintenance outcomes.

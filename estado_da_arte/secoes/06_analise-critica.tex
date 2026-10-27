@@ -1,36 +1,51 @@
-\section{Análise Crítica, Lacunas e Tendências}
-\label{sec:analise}
- 
-\subsection{Comparação das abordagens}
- 
-A Tabela~\ref{tab:comparacao} resume os trabalhos analisados. As abordagens dividem-se em dois grupos. O primeiro combina a previsão do estado dos equipamentos com uma ordenação multicritério estática, como o modelo de Rastogi et al.~\cite{rastogi2024}. Estas abordagens são transparentes e fáceis de aplicar, mas dependem de pesos definidos pelos autores e produzem uma ordenação válida apenas para o momento em que é calculada. O segundo grupo trata a priorização como um problema sequencial, como o modelo de aprendizagem por reforço de Luo~\cite{luo2026}. Estas abordagens consideram o efeito das decisões atuais no estado futuro do sistema, mas funcionam como uma caixa preta e exigem um ambiente de simulação difícil de construir e validar.
- 
+\section{Critical Analysis, Gaps and Trends}
+\label{sec:analysis}
+
+\subsection{Comparison of the Approaches}
+\label{sec:comparison}
+
+The studies fall into five families according to the method at the core of the prioritisation (Table~\ref{tab:families}). None is better in every respect. MCDM and risk-based methods are transparent and work with expert knowledge alone, but they produce a static ranking that ignores resources unless coupled with optimisation. Optimisation handles resources and time but usually receives the priorities as given. Hybrid approaches use condition data but depend on large histories and add components the user cannot inspect.
+
 \begin{table}[htbp]
 \centering
-\caption{Comparação dos trabalhos analisados.}
-\label{tab:comparacao}
-\begin{tabular}{|p{1.1cm}|p{3.0cm}|p{2.3cm}|p{4.0cm}|}
+\caption{Comparison of the families of approaches found in the included studies.}
+\label{tab:families}
+\scriptsize
+\begin{tabular}{|>{\raggedright\arraybackslash}p{1.6cm}|>{\raggedright\arraybackslash}p{3.1cm}|>{\raggedright\arraybackslash}p{3.3cm}|>{\raggedright\arraybackslash}p{2.4cm}|}
 \hline
-\textbf{Ref.} & \textbf{Método} & \textbf{Dados e validação} & \textbf{Limitações} \\
+\textbf{Family} & \textbf{Strengths} & \textbf{Limitations} & \textbf{Studies} \\
 \hline
-\cite{rastogi2024} & Previsão da RUL e soma ponderada de fatores, com restrições de recursos & Caso ilustrativo de um sistema elétrico & Pesos hipotéticos; sem método multicritério formal; segurança fora do modelo \\
+MCDM & Transparent; uses expert knowledge; needs no sensor data & Static ranking; subjective weights; compensatory aggregation; resources only when combined with optimisation & \cite{ozcan2021,bulut2021,panwar2021,bahrami2021,enjavimadar2022,moradi2024,rios2025} \\
 \hline
-\cite{luo2026} & Aprendizagem por reforço (Deep Q-Network) & Dataset público e caso de um parque eólico & Ambiente pouco descrito; comparações discutíveis; sem explicação das decisões \\
+Risk and FMEA & Familiar to maintenance teams; consistent with RCM; links severity and likelihood & Ordinal scores; ranks risks rather than interventions; resources rarely considered & \cite{bahadir2026,qiu2026,shaulagara2023,zhou2024,hedayatnia2025} \\
+\hline
+Hybrid with ML & Uses condition data; can be updated as new data arrive & Needs large labelled histories; labels are proxies or past decisions; predictive part hard to explain & \cite{tang2026,darko2026,astepe2021,wehbi2026,danach2026,rios2024,wittbrodt2026} \\
+\hline
+Optimisation and scheduling & Handles crews, budgets and time windows; scales to large instances & Priorities given a priori or hidden in costs; many assumed parameters; metaheuristics and DRL hard to explain & \cite{schulze2022,geng2022,woller2023,gao2024,bi2022,dui2025,dui2026,li2027} \\
+\hline
+Simulation and industrial practice & Grounded in production impact; implemented in real plants & Specific to one line or plant; hard to generalise; evaluation without control & \cite{yang2021,gopalakrishnan2022,delgado2026,hall2021} \\
 \hline
 \end{tabular}
 \end{table}
- 
-\subsection{Lacunas identificadas}
- 
-Da análise realizada resultam as seguintes lacunas:
-\begin{itemize}
-  \item \textbf{Pesos pouco justificados.} Os pesos dos critérios são muitas vezes definidos pelos autores, sem recurso a métodos estruturados de elicitação junto dos especialistas~\cite{rastogi2024}.
-  \item \textbf{Segurança tratada como compensável.} A segurança surge como mais um peso, o que permite que um ganho em custo ou disponibilidade compense um risco para as pessoas~\cite{rastogi2024,luo2026}.
-  \item \textbf{Validação limitada.} Os resultados assentam em dados ilustrativos ou pouco documentados, sem comparação com as práticas usadas na indústria.
-  \item \textbf{Falta de explicação.} O decisor recebe uma pontuação ou uma ação recomendada, mas não percebe porque é que uma intervenção ficou à frente de outra~\cite{luo2026}.
-  \item \textbf{Decisão individual.} As abordagens assumem um único decisor, embora a priorização envolva normalmente as áreas de manutenção, produção e segurança.
-\end{itemize}
- 
-\subsection{Tendências}
- 
-A literatura aponta para a integração destes sistemas com gémeos digitais, que permitem testar decisões num modelo virtual do equipamento antes de as aplicar. Destaca-se também o uso de técnicas de inteligência artificial explicável, que tornam as recomendações compreensíveis para o decisor, e a passagem da manutenção preditiva para a prescritiva, em que o sistema não se limita a prever a falha e recomenda a ação a tomar. Por fim, os sistemas multiagente e de decisão em grupo surgem como forma de conciliar os interesses das várias áreas envolvidas.
+
+\subsection{Gaps}
+\label{sec:gaps}
+
+Six gaps emerge from the analysis, each pointing to a requirement for a decision support system.
+
+\textbf{G1. Safety is rarely a separate condition.} It is explicit in only seven studies and is usually aggregated with other factors~\cite{panwar2021,delgado2026}, so a low safety score can be offset elsewhere. A DSS should treat safety and regulatory requirements as non-compensable constraints.
+
+\textbf{G2. Ranking and scheduling are separate.} Most MCDM and risk-based studies ignore crews, parts and downtime windows, while some scheduling models take priorities as given~\cite{gao2024}; few chain both~\cite{rios2025,danach2026,darko2026,moradi2024}. A DSS should derive priorities and plan interventions in the same process.
+
+\textbf{G3. Priorities are rarely updated.} Only five studies revise priorities through a feedback loop or rolling horizon. A DSS should recompute them when new condition data, failures or work orders appear.
+
+\textbf{G4. Weights lack a solid basis.} They are assumed equal, unreported or taken from few experts~\cite{delgado2026,wittbrodt2026,ozcan2021}, and sensitivity analysis is rare~\cite{bahrami2021,rios2025,wehbi2026,darko2026}. A DSS should make weights explicit, editable and tested for sensitivity.
+
+\textbf{G5. Explanation and collaboration are limited.} Twenty studies explain their recommendations only partially or not at all, only one links each decision to its data~\cite{danach2026}, and no system supports a joint decision between maintenance, production and safety. A DSS should justify each priority by criterion and let several stakeholders review the plan.
+
+\textbf{G6. Evidence of real impact is weak.} Only six studies applied their results in the plant, always without a control group. A DSS should record decisions and outcomes so that its effect can be measured over time.
+
+\subsection{Trends}
+\label{sec:trends}
+
+Nine of the 31 studies date from 2026, including five of the seven hybrid ML studies, against one in 2021~\cite{astepe2021}. Four trends stand out: prediction feeding optimisation directly~\cite{danach2026,darko2026,wehbi2026,dui2025}; prescriptive systems that generate and rank alternative actions~\cite{wittbrodt2026}; explainability through SHAP values or decomposed risk scores~\cite{danach2026,tang2026}; and digital twins and IoT architectures as the data layer~\cite{dui2025,dui2026}, together with learning-based scheduling~\cite{li2027}. The most recent proposals are also the most complex, and none has yet been evaluated over a long period of real operation.

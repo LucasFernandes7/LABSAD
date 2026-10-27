@@ -1,7 +1,8 @@
-\section{Conclusões}
+\section{Conclusions}
+\label{sec:conclusions}
 
-Principais conclusões da revisão: o que a literatura já resolve bem e o que continua em aberto.
+This review analysed 31 studies, published from 2021 onwards, that prioritise industrial maintenance interventions and evaluate their approach in a real setting. The literature already offers mature building blocks. Criteria are well identified, with resources, failure likelihood and production impact at the centre. Weighting and ranking methods such as AHP, BWM and TOPSIS are widely used, optimisation models handle crews, budgets and time windows, and machine learning provides increasingly reliable failure predictions. What remains open is how these blocks are put together. Safety is seldom treated as a separate condition, ranking and scheduling are usually solved apart, priorities are computed once and rarely updated, weights have a weak basis, recommendations are only partly explained, and few studies show that following the system actually improved maintenance results.
 
-Próximos passos: implementação do protótipo, escolha do dataset, validação com cenários e avaliação da satisfação do utilizador.
+The proposed DSS addresses part of these gaps by combining failure prediction with AHP and TOPSIS, placing safety outside the trade-off between criteria and explaining every position in the ranking. The next steps are to implement the prototype on a public predictive maintenance dataset, elicit the weights with maintenance, production and safety staff, and evaluate the system in scenarios: comparing its ranking with that of an experienced planner, checking how the ranking reacts to changes in the weights, and measuring whether users understand and accept the explanations. Integration with scheduling and validation with real plant data are left for later stages.
 
-Visão do grupo sobre o papel futuro dos SAD na manutenção industrial (ex.: integração com gémeos digitais, recomendações explicáveis, decisão em grupo).
+In our view, the role of DSS in industrial maintenance will be less about replacing the planner and more about making decisions explicit. As digital twins and condition monitoring make more data available, the value of these systems will lie in showing why an intervention comes first, in letting different departments agree on that order, and in keeping a record that allows the plant to learn from its own decisions.

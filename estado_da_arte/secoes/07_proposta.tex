@@ -1,67 +1,84 @@
-\section{Proposta}
+\section{Proposal}
 \label{sec:proposta}
- 
-Propõe-se um Sistema de Apoio à Decisão que ajuda o responsável de manutenção a decidir por que ordem realizar as intervenções pendentes. O sistema combina a previsão da probabilidade de falha dos equipamentos com um método de decisão multicritério e apresenta uma ordenação justificada. Pretende responder às lacunas identificadas na Secção~\ref{sec:analise}: pesos definidos pelos decisores através de um método estruturado, segurança tratada como restrição obrigatória e explicação de cada recomendação.
- 
-\subsection{Contextualização do sistema}
- 
+
+We propose a decision support system that helps the maintenance manager decide the order in which pending interventions should be carried out. The system combines the predicted failure probability of each asset with a multi-criteria decision method and returns a justified ranking. Its design follows the gaps identified in Section~\ref{sec:analysis}: safety is a non-compensable constraint (G1), criteria weights are elicited from several stakeholders through a structured method and can be tested for sensitivity (G4), and every position in the ranking is explained in terms of the criteria (G5). The ranking is recomputed when new condition data or failures arrive, which partly addresses G3, and the history of decisions is stored so that their outcomes can later be assessed (G6). Joint ranking and scheduling of interventions (G2) is left for future work.
+
+\subsection{System Context}
+\label{sec:context}
+
 \begin{itemize}
-  \item \textbf{Destinatários.} O utilizador principal é o gestor ou planeador de manutenção. Os responsáveis de produção e de segurança participam na definição da importância dos critérios.
-  \item \textbf{Tipo de problema.} Trata-se de um problema semiestruturado: parte da informação é quantitativa (dados de sensores, custos, tempos de reparação) e parte depende do julgamento dos especialistas.
-  \item \textbf{Decisão síncrona e assíncrona.} A priorização é feita de forma assíncrona, por exemplo no início de cada dia ou turno, e é recalculada sempre que surge uma nova avaria urgente.
-  \item \textbf{Critérios.} A segurança é um critério obrigatório: uma intervenção com risco para pessoas fica sempre no topo da lista. Os restantes critérios podem ser relaxados e compensam-se entre si: impacto na produção, probabilidade de falha, custo, duração da intervenção e disponibilidade de técnicos e peças.
-  \item \textbf{Aspetos sociais.} As várias áreas da empresa têm prioridades diferentes. O sistema permite que cada uma indique a importância que dá aos critérios e agrega essas opiniões.
-  \item \textbf{Sensores.} São usados dados de condição dos equipamentos (por exemplo, temperatura, vibração e binário). No protótipo será utilizado um dataset público de manutenção preditiva.
-  \item \textbf{Interface.} Uma aplicação web que mostra o ranking das intervenções, a explicação de cada posição e permite testar cenários alterando os pesos dos critérios.
-  \item \textbf{Tecnologias.} Aprendizagem automática para estimar a probabilidade de falha, o método AHP para definir os pesos dos critérios e o método TOPSIS para ordenar as intervenções.
+  \item \textbf{Target users.} The main user is the maintenance manager or planner. Production and safety managers take part in defining the importance of the criteria.
+  \item \textbf{Type of problem.} Semi-structured: part of the information is quantitative (condition data, costs, repair times) and part depends on expert judgement.
+  \item \textbf{Synchronous and asynchronous decision.} The ranking is produced asynchronously, at the start of each shift, and recomputed whenever an urgent failure is reported. The definition of weights is a synchronous group activity, repeated when priorities in the plant change.
+  \item \textbf{Criteria.} Safety risk is mandatory and cannot be relaxed: interventions with a risk to people are always placed first. Failure probability, production impact, cost, intervention duration and availability of technicians and spare parts can be relaxed and compensate each other.
+  \item \textbf{Social aspects.} Maintenance, production and safety staff have different priorities. Each states its own judgements, and the system aggregates them and shows where they diverge.
+  \item \textbf{Sensors.} Condition data such as temperature, vibration and torque feed the failure prediction. The prototype will use a public predictive maintenance dataset; validation with real plant data is planned as future work.
+  \item \textbf{Interface.} A web application showing the ranking, the explanation of each position and a what-if view where the user changes the weights and sees the effect on the ranking.
+  \item \textbf{Technologies.} Machine learning to estimate failure probability, AHP to derive the weights, and TOPSIS to rank the interventions.
 \end{itemize}
- 
-\subsection{Requisitos funcionais}
- 
-\begin{itemize}
-  \item \textbf{RF01.} Registar e importar as intervenções pendentes e os dados dos equipamentos.
-  \item \textbf{RF02.} Estimar a probabilidade de falha de cada equipamento a partir dos dados de condição.
-  \item \textbf{RF03.} Permitir que os decisores definam a importância dos critérios por comparação par a par.
-  \item \textbf{RF04.} Colocar no topo da lista as intervenções com risco para a segurança.
-  \item \textbf{RF05.} Gerar a ordenação das intervenções pendentes.
-  \item \textbf{RF06.} Explicar a posição de cada intervenção, indicando os critérios que mais contribuíram.
-  \item \textbf{RF07.} Permitir a análise de sensibilidade, mostrando como o ranking muda quando se alteram os pesos.
-  \item \textbf{RF08.} Guardar o histórico das decisões tomadas.
-\end{itemize}
- 
-\subsection{Requisitos não funcionais}
- 
-\begin{itemize}
-  \item \textbf{RNF01 -- Desempenho.} O ranking deve ser gerado em poucos segundos para algumas centenas de intervenções.
-  \item \textbf{RNF02 -- Usabilidade.} A interface deve ser compreensível por utilizadores sem conhecimentos de decisão multicritério.
-  \item \textbf{RNF03 -- Transparência.} Todas as recomendações devem ser acompanhadas de uma justificação.
-  \item \textbf{RNF04 -- Interoperabilidade.} O sistema deve importar dados em formatos comuns, como CSV, e poder ligar-se a um CMMS.
-  \item \textbf{RNF05 -- Segurança.} O acesso deve exigir autenticação, com perfis diferentes para gestores e restantes utilizadores.
-\end{itemize}
- 
-\subsection{Arquitetura conceptual}
- 
-A arquitetura proposta (Fig.~\ref{fig:arquitetura}) organiza-se em cinco módulos:
-\begin{enumerate}
-  \item \textbf{Módulo de dados.} Recolhe e prepara a informação dos sensores, das ordens de trabalho e dos custos e stocks.
-  \item \textbf{Módulo preditivo.} Estima a probabilidade de falha de cada equipamento com um modelo de aprendizagem automática.
-  \item \textbf{Módulo de pesos.} Recolhe as comparações dos decisores e calcula os pesos dos critérios com o AHP.
-  \item \textbf{Módulo de decisão.} Aplica primeiro a restrição de segurança e depois ordena as restantes intervenções com o TOPSIS.
-  \item \textbf{Interface.} Apresenta o ranking, a explicação de cada posição e a análise de sensibilidade.
-\end{enumerate}
- 
-A separação entre o módulo preditivo e o módulo de decisão permite trocar o modelo de previsão sem alterar a lógica de priorização. O AHP foi escolhido por ser um método conhecido, que verifica a consistência dos julgamentos e se adapta à participação de vários decisores. O TOPSIS foi escolhido por ser simples de explicar: cada intervenção é avaliada pela proximidade a uma solução ideal. Tratar a segurança como restrição, e não como peso, impede que um risco para as pessoas seja compensado por ganhos noutros critérios.
- 
-\begin{figure}[htbp]
+
+\subsection{Requirements}
+\label{sec:requirements}
+
+Table~\ref{tab:requirements} lists the functional (FR) and non-functional (NFR) requirements and, where applicable, the gap from Section~\ref{sec:gaps} that each one addresses.
+
+\begin{table}[!b]
 \centering
-% Desenhar o diagrama (draw.io, PowerPoint...) e exportar como PDF ou PNG
-% para a pasta figuras/ com o nome arquitetura.
-\fbox{\parbox{0.8\textwidth}{\centering\vspace{1cm}
-Dados $\rightarrow$ Previsão $\rightarrow$ Decisão (segurança + TOPSIS) $\rightarrow$ Interface\\[0.3cm]
-Pesos (AHP) $\rightarrow$ Decisão
-\vspace{1cm}}}
-% Quando tiverem a imagem, substituir o \fbox acima por:
-% \includegraphics[width=\textwidth]{figuras/arquitetura}
-\caption{Arquitetura conceptual do sistema proposto.}
+\caption{Functional and non-functional requirements of the proposed system.}
+\label{tab:requirements}
+\scriptsize
+\begin{tabular}{|p{0.9cm}|>{\raggedright\arraybackslash}p{9.0cm}|c|}
+\hline
+\textbf{ID} & \textbf{Requirement} & \textbf{Gap} \\
+\hline
+FR01 & Import pending interventions, equipment data and work orders (e.g., from CSV files or a CMMS). & -- \\
+FR02 & Estimate the failure probability of each asset from its condition data. & -- \\
+FR03 & Let each stakeholder define the importance of the criteria through pairwise comparisons, warn when judgements are inconsistent (\textit{CR} $\geq 0.1$) and aggregate the judgements of all stakeholders. & G4, G5 \\
+FR04 & Place every intervention with a safety risk at the top of the list, regardless of the other criteria. & G1 \\
+FR05 & Rank the remaining pending interventions and recompute the ranking when new data or failures arrive. & G3 \\
+FR06 & Explain each position by showing the contribution of each criterion. & G5 \\
+FR07 & Show how the ranking changes when the weights are changed (sensitivity analysis). & G4 \\
+FR08 & Store each ranking, the decision taken and, later, its outcome. & G6 \\
+\hline
+NFR01 & Performance: produce the ranking in a few seconds for a few hundred interventions. & -- \\
+NFR02 & Usability: be understandable by users without knowledge of MCDM methods. & -- \\
+NFR03 & Transparency: no recommendation is shown without its justification. & G5 \\
+NFR04 & Interoperability: import data in common formats and allow connection to a CMMS. & -- \\
+NFR05 & Security: require authentication, with separate profiles for managers and other users. & -- \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Conceptual Architecture}
+\label{sec:architecture}
+
+The architecture (Fig.~\ref{fig:arquitetura}) has five modules. The \textbf{data module} collects condition data, work orders, costs and stock levels. The \textbf{predictive module} estimates the failure probability of each asset with a machine learning model. The \textbf{weighting module} collects the pairwise comparisons of each stakeholder, checks their consistency and aggregates them into a single set of AHP weights. The \textbf{decision module} first separates the interventions that involve a safety risk and then ranks all interventions with TOPSIS, keeping the safety-critical ones at the top. The \textbf{interface} presents the ranking, the explanation of each position and the sensitivity analysis, and records the decision taken, which feeds back into the data module.
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[
+  font=\scriptsize,
+  box/.style={draw, rounded corners=2pt, align=center, minimum height=0.95cm, text width=1.95cm},
+  src/.style={draw, dashed, align=center, minimum height=0.6cm, text width=1.95cm},
+  arr/.style={-{Stealth[length=2mm]}, thick}
+]
+\node[src] (sources) at (0,0) {Sensors, work orders, costs, stock};
+\node[box] (data)  at (2.45,0) {\textbf{Data module}\\ cleaning,\\ integration};
+\node[box] (pred)  at (4.9,0) {\textbf{Predictive module}\\ failure\\ probability (ML)};
+\node[box] (dec)   at (7.35,0) {\textbf{Decision module}\\ 1.\ safety constraint\\ 2.\ TOPSIS ranking};
+\node[box] (ui)    at (9.8,0) {\textbf{Interface}\\ ranking,\\ explanation,\\ what-if};
+\node[src] (stake) at (4.9,-2.2) {Maintenance, production, safety staff};
+\node[box] (w)     at (7.35,-2.2) {\textbf{Weighting module}\\ AHP, consistency, aggregation};
+\draw[arr] (sources) -- (data);
+\draw[arr] (data) -- (pred);
+\draw[arr] (pred) -- (dec);
+\draw[arr] (dec) -- (ui);
+\draw[arr] (stake) -- (w);
+\draw[arr] (w) -- (dec);
+\draw[arr, dashed] (ui.north) -- ++(0,0.55) -| node[pos=0.25, above] {decision history} (data.north);
+\end{tikzpicture}
+\caption{Conceptual architecture of the proposed system.}
 \label{fig:arquitetura}
 \end{figure}
+
+These choices respond directly to the review. Keeping the predictive and decision modules separate allows the prediction model to be replaced without changing the prioritisation logic, as in the hybrid studies of Section~\ref{sec:criteria-methods}. AHP was chosen because it is widely used in the reviewed studies, checks the consistency of judgements and supports group elicitation; the consistency warning in FR03 follows the low share of consistent expert judgements reported in Section~\ref{sec:mcdm}. TOPSIS was chosen because it is the most frequent ranking method in the sample and its result is easy to explain as the closeness of each intervention to an ideal one. Treating safety as a constraint rather than a weight prevents a risk to people from being offset by gains in other criteria, which is the main weakness found in the compensatory models reviewed.

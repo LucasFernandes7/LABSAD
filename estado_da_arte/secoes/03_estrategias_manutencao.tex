@@ -1,16 +1,28 @@
-\section{Enquadramento: Estratégias de Manutenção}
-\label{sec:enquadramento}
+\section{Background: Maintenance Strategies}
+\label{sec:background}
 
-Parágrafo de abertura: evolução de uma manutenção reativa para uma manutenção proativa e orientada por dados.
+Maintenance strategies differ in what triggers an intervention and in the information they require (Table~\ref{tab:strategies}). \textbf{Corrective} maintenance restores equipment after a failure; it needs no planning but exposes the plant to unplanned downtime, secondary damage and safety risks, so it suits only equipment whose failure has small consequences. \textbf{Preventive} maintenance acts at fixed time or usage intervals, which makes work easy to plan, but the intervals reflect average behaviour rather than the state of each machine, so some components are replaced too early and others fail before their turn. \textbf{Condition-based} maintenance (CBM) intervenes when a measured indicator, such as vibration or temperature, crosses a threshold. \textbf{Predictive} maintenance goes further and estimates the remaining useful life (RUL) with data-driven, physics-based or hybrid models. A RUL estimate, however, does not say which of several pending interventions should come first, nor how to weigh failure likelihood against safety, production or cost; many retrieved studies stopped at this stage and were excluded under E4. \textbf{Prescriptive} maintenance closes this gap by recommending the action, its timing and its resources, combining predictions with costs, constraints and expert knowledge. The DSS proposed in this work moves in this direction, turning failure predictions into a justified order of interventions.
 
-\subsection{Manutenção corretiva e preventiva}
-Corretiva: intervir depois da falha. Preventiva: intervir em intervalos fixos (tempo/uso). Vantagens e custos de cada uma.
+\begin{table}[t]
+\centering
+\caption{Comparison of maintenance strategies.}
+\label{tab:strategies}
+\scriptsize
+\begin{tabular}{|>{\raggedright\arraybackslash}p{1.7cm}|>{\raggedright\arraybackslash}p{2.6cm}|>{\raggedright\arraybackslash}p{2.8cm}|>{\raggedright\arraybackslash}p{3.3cm}|}
+\hline
+\textbf{Strategy} & \textbf{Trigger} & \textbf{Information required} & \textbf{Main limitation} \\
+\hline
+Corrective & Occurrence of a failure & Failure reports & Unplanned downtime and secondary damage \\
+\hline
+Preventive & Fixed time or usage interval & Manufacturer data, failure history & Interventions on healthy equipment \\
+\hline
+Condition-based & Indicator exceeds a threshold & Condition monitoring data & No anticipation of the failure time \\
+\hline
+Predictive & Estimated RUL & Sensor data, prognostic models & Does not define which action to take or in which order \\
+\hline
+Prescriptive & Recommended action and timing & Predictions, costs, resources and constraints & Requires integration of data, models and organisational knowledge \\
+\hline
+\end{tabular}
+\end{table}
 
-\subsection{Manutenção condicionada e preditiva}
-Condicionada (CBM): intervir quando um indicador ultrapassa um limiar. Preditiva (PdM): estimar quando a falha vai ocorrer, por exemplo através da vida útil restante (RUL) e de técnicas de PHM.
-
-\subsection{Manutenção prescritiva}
-Para além de prever a falha, recomendar a ação a tomar. É aqui que um SAD de priorização se encaixa.
-
-\subsection{RCM e TPM}
-Reliability-Centered Maintenance (análise de funções, modos de falha e consequências) e Total Productive Maintenance (envolvimento de toda a organização, OEE). Breve, como base para a noção de criticidade.
+Two management frameworks are often combined with these strategies. Reli\-a\-bil\-i\-ty-Centred Maintenance (RCM) defines the policy of each asset through an analysis of its functions, failure modes and consequences; its tools, Failure Mode and Effects Analysis (FMEA) and criticality analysis, introduced the ranking of assets by severity and likelihood that underlies many of the models in Section~\ref{sec:criteria-methods}. Total Productive Maintenance (TPM) involves operators in equipment care and measures performance through Overall Equipment Effectiveness (OEE), bringing the production cost of downtime into maintenance decisions.

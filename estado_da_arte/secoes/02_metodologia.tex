@@ -1,25 +1,64 @@
-\section{Metodologia da Revisão}
-\label{sec:metodologia}
+\section{Review Methodology}
+\label{sec:methodology}
 
-\subsection{Questões de investigação}
+This review follows a structured state-of-the-art approach based on the guidelines of Kitchenham and Charters~\cite{kitchenham2007} and reports the study selection according to PRISMA 2020~\cite{page2021prisma}. It is not a full systematic literature review, since no formal quality scoring was performed; the robustness of each study was instead assessed through the validation and limitations recorded during data extraction. Four research questions (RQ) guided the review:
 \begin{itemize}
-  \item \textbf{QI1:} Que critérios são usados para priorizar intervenções de manutenção industrial?
-  \item \textbf{QI2:} Que métodos (multicritério, otimização, aprendizagem automática) são aplicados a essa priorização?
-  \item \textbf{QI3:} Que sistemas de apoio à decisão existem e como estão arquitetados?
-  \item \textbf{QI4:} Quais são as limitações das abordagens existentes?
+  \item \textbf{RQ1:} Which criteria are considered when prioritising industrial maintenance interventions?
+  \item \textbf{RQ2:} Which methods (multi-criteria decision-making, optimisation, machine learning) are used to prioritise these interventions?
+  \item \textbf{RQ3:} How are maintenance decision support systems designed in terms of architecture, data sources and interaction with the decision-maker?
+  \item \textbf{RQ4:} How are the proposed approaches validated, and what limitations do they present?
 \end{itemize}
 
-\subsection{Fontes e strings de pesquisa}
-Indicar as bases usadas (Scopus, Web of Science, IEEE Xplore, ScienceDirect, SpringerLink), as datas das pesquisas e as strings. Exemplo:
+\subsection{Search Strategy and Eligibility Criteria}
+\label{sec:search}
+\label{sec:criteria}
 
-\begin{quote}\small\ttfamily
-("maintenance prioriti*" OR "maintenance decision" OR "maintenance planning")
-AND ("decision support" OR "multi-criteria" OR MCDM OR AHP OR TOPSIS)
-AND (industr* OR manufactur*)
+IEEE Xplore and the Web of Science Core Collection were searched; Scopus was not available through the institutional subscription. The search string combines three groups of concepts: maintenance, prioritisation and decision-making, and the industrial context. A first version, which applied all terms to every field, returned about 1500 records in IEEE Xplore, many of them only because journal titles matched the industrial terms. The final version therefore requires \textit{maintenance} in the title and the other concepts in the abstract:
+
+\begin{quote}\scriptsize\ttfamily\raggedright
+IEEE Xplore: ("Document Title":maintenance) AND ("Abstract":prioriti* OR "Abstract":priority OR "Abstract":criticality OR "Abstract":"decision support" OR "Abstract":"multi-criteria" OR "Abstract":AHP OR "Abstract":TOPSIS) AND ("Abstract":industr* OR "Abstract":manufactur* OR "Abstract":equipment)\\[3pt]
+Web of Science: TI=(maintenance) AND AB=(prioriti* OR priority OR criticality OR "decision support" OR "multi-criteria" OR AHP OR TOPSIS) AND AB=(industr* OR manufactur* OR equipment) AND PY=(2021-2026)
 \end{quote}
 
-\subsection{Critérios de inclusão e exclusão}
-Inclusão: artigos de revista e conferência, 2015--2026, em inglês ou português, sobre priorização/decisão em manutenção industrial. Exclusão: sem acesso ao texto integral, fora do contexto industrial, apenas previsão de RUL sem componente de decisão.
+Both searches were run on 19 October 2026 and limited to 2021--2026; one study published online in 2026 appears in a 2027 journal issue~\cite{li2027}. In Web of Science, results were limited to articles, proceedings papers and early access items in English, within ten engineering, operations research, management and computer science categories, which reduced them from 582 to 385. IEEE Xplore returned 169 records.
 
-\subsection{Processo de seleção}
-Descrever as fases (identificação, remoção de duplicados, triagem por título/resumo, leitura integral) com o número de artigos em cada uma. Se houver números reais, incluir o diagrama PRISMA.
+A study was included if it was a peer-reviewed journal or conference paper, published between 2021 and 2026, written in English, proposing or applying a prioritisation or decision method for maintenance interventions in an industrial context, and presenting some form of evaluation. Studies were excluded for any of the reasons in Table~\ref{tab:criteria}. Criterion E8 was added during screening, and E9 and E10 were defined after data extraction and before synthesis, to focus the review on its central problem and on evidence from real settings. Both were applied in the same way to every study read in full.
+
+\begin{table}[t]
+\centering
+\caption{Exclusion criteria.}
+\label{tab:criteria}
+\scriptsize
+\begin{tabular}{|p{0.6cm}|>{\raggedright\arraybackslash}p{10.4cm}|}
+\hline
+E1 & Duplicate record. \\
+E2 & Not a peer-reviewed primary study (review, survey, editorial or preprint). \\
+E3 & Outside the industrial context (e.g., healthcare, buildings, civil infrastructure, IT maintenance). \\
+E4 & Only failure prediction, detection or diagnosis, with no decision component. \\
+E5 & No evaluation of any kind. \quad \textbf{E6} Insufficient methodological detail. \quad \textbf{E7} Full text not accessible. \\
+E8 & Maintenance management without decisions on interventions or assets (e.g., skills, barriers, KPIs). \\
+E9 & The decision is not the prioritisation, selection or scheduling of interventions or assets (e.g., strategy selection, interval optimisation, joint production and maintenance scheduling). \\
+E10 & Not applied to real data or an industrial case with a comparison against current practice, another method or a before/after measurement. \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Study Selection and Data Extraction}
+\label{sec:selection}
+
+Fig.~\ref{fig:prisma} summarises the selection. Of the 554 records retrieved, 45 duplicates were removed by DOI and normalised title. The remaining 509 were screened by title and abstract, a stage that excluded 233 records, mostly under E8 ($n=108$) and E3 ($n=59$). Of the 276 reports sought, 47 could not be accessed (E7). After full-text reading of the remaining 229, a further 198 were excluded, mainly under E9 ($n=60$) and E10 ($n=62$), leaving 31 studies.
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=0.6\textwidth]{figuras/prisma.png}
+\caption{PRISMA 2020 flow diagram of the study selection.}
+\label{fig:prisma}
+\end{figure}
+
+\label{sec:extraction}
+For each included study, an extraction form recorded the sector, the prioritisation criteria (RQ1), the decision method and the origin of the weights (RQ2), the architecture and data sources (RQ3), the validation design and results, the limitations (RQ4) and whether the system explains its recommendations. A large language model produced a first classification at screening and a first version of each form; every decision and value was then checked against the original article by one of the authors.
+
+\subsection{Limitations of the Review}
+\label{sec:review-limitations}
+
+Only two databases were searched, and requiring \textit{maintenance} in the title may have missed studies that mention it only in the abstract. Defining E9 and E10 after extraction introduces a risk of selection bias, although both were applied uniformly and are documented in Table~\ref{tab:criteria}. Finally, 47 reports could not be retrieved, and the use of a language model was mitigated by having every output verified by the authors.
