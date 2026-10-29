@@ -1,30 +1,6 @@
 \section{Background: Maintenance Strategies}
 \label{sec:background}
 
-Maintenance strategies differ in what triggers an intervention and in the information they require (Table~\ref{tab:strategies}). \textbf{Corrective} maintenance restores equipment after a failure; it needs no planning but exposes the plant to unplanned downtime, secondary damage and safety risks, so it suits only equipment whose failure has small consequences. \textbf{Preventive} maintenance acts at fixed time or usage intervals, which makes work easy to plan, but the intervals reflect average behaviour rather than the state of each machine, so some components are replaced too early and others fail before their turn. \textbf{Condition-based} maintenance (CBM) intervenes when a measured indicator, such as vibration or temperature, crosses a threshold. \textbf{Predictive} maintenance goes further and estimates the remaining useful life (RUL) with data-driven, physics-based or hybrid models. A RUL estimate, however, does not say which of several pending interventions should come first, nor how to weigh failure likelihood against safety, production or cost; many retrieved studies stopped at this stage and were excluded under E4. \textbf{Prescriptive} maintenance closes this gap by recommending the action, its timing and its resources, combining predictions with costs, constraints and expert knowledge. The DSS proposed in this work moves in this direction, turning failure predictions into a justified order of interventions.
+Maintenance strategies differ in what triggers an intervention and in the information they require (Table~\ref{tab:strategies}, Appendix~\ref{app:figures}). \textbf{Corrective} maintenance restores equipment after a failure; it needs no planning but exposes the plant to unplanned downtime and safety risks. \textbf{Preventive} maintenance acts at fixed time or usage intervals, which is easy to plan but ignores the state of each machine, so some components are replaced too early and others fail first. \textbf{Condition-based} maintenance (CBM) intervenes when a measured indicator, such as vibration or temperature, crosses a threshold. \textbf{Predictive} maintenance goes further and estimates the remaining useful life (RUL) with data-driven, physics-based or hybrid models. A RUL estimate, however, does not say which of several pending interventions should come first, nor how to weigh failure likelihood against safety, production or cost; many retrieved studies stopped at this stage and were excluded under E4. \textbf{Prescriptive} maintenance closes this gap by recommending the action, its timing and its resources, combining predictions with costs, constraints and expert knowledge. This is the level at which the present work is placed.
 
-
-
-Two management frameworks are often combined with these strategies. Reli\-a\-bil\-i\-ty-Centred Maintenance (RCM) defines the policy of each asset through an analysis of its functions, failure modes and consequences; its tools, Failure Mode and Effects Analysis (FMEA) and criticality analysis, introduced the ranking of assets by severity and likelihood that underlies many of the models in Section~\ref{sec:criteria-methods}. Total Productive Maintenance (TPM) involves operators in equipment care and measures performance through Overall Equipment Effectiveness (OEE), bringing the production cost of downtime into maintenance decisions.
-
-\begin{table}[H]
-\centering
-\caption{Comparison of maintenance strategies.}
-\label{tab:strategies}
-\scriptsize
-\begin{tabular}{|>{\raggedright\arraybackslash}p{1.7cm}|>{\raggedright\arraybackslash}p{2.6cm}|>{\raggedright\arraybackslash}p{2.8cm}|>{\raggedright\arraybackslash}p{3.3cm}|}
-\hline
-\textbf{Strategy} & \textbf{Trigger} & \textbf{Information required} & \textbf{Main limitation} \\
-\hline
-Corrective & Occurrence of a failure & Failure reports & Unplanned downtime and secondary damage \\
-\hline
-Preventive & Fixed time or usage interval & Manufacturer data, failure history & Interventions on healthy equipment \\
-\hline
-Condition-based & Indicator exceeds a threshold & Condition monitoring data & No anticipation of the failure time \\
-\hline
-Predictive & Estimated RUL & Sensor data, prognostic models & Does not define which action to take or in which order \\
-\hline
-Prescriptive & Recommended action and timing & Predictions, costs, resources and constraints & Requires integration of data, models and organisational knowledge \\
-\hline
-\end{tabular}
-\end{table}
+Two management frameworks are often combined with these strategies. Reli\-a\-bil\-i\-ty-Centred Maintenance (RCM) defines the policy of each asset through an analysis of its functions, failure modes and consequences; its tools, FMEA and criticality analysis, introduced the ranking of assets by severity and likelihood that underlies many of the models in Section~\ref{sec:criteria-methods}. Total Productive Maintenance (TPM) involves operators in equipment care and measures performance through Overall Equipment Effectiveness (OEE), bringing the production cost of downtime into maintenance decisions.

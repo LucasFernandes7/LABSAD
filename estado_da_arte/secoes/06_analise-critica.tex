@@ -4,29 +4,7 @@
 \subsection{Comparison of the Approaches}
 \label{sec:comparison}
 
-The studies fall into five families according to the method at the core of the prioritisation (Table~\ref{tab:families}). None is better in every respect. MCDM and risk-based methods are transparent and work with expert knowledge alone, but they produce a static ranking that ignores resources unless coupled with optimisation. Optimisation handles resources and time but usually receives the priorities as given. Hybrid approaches use condition data but depend on large histories and add components the user cannot inspect.
-
-\begin{table}[!htbp]
-\centering
-\caption{Comparison of the families of approaches found in the included studies.}
-\label{tab:families}
-\scriptsize
-\begin{tabular}{|>{\raggedright\arraybackslash}p{1.6cm}|>{\raggedright\arraybackslash}p{3.1cm}|>{\raggedright\arraybackslash}p{3.3cm}|>{\raggedright\arraybackslash}p{2.4cm}|}
-\hline
-\textbf{Family} & \textbf{Strengths} & \textbf{Limitations} & \textbf{Studies} \\
-\hline
-MCDM & Transparent; uses expert knowledge; needs no sensor data & Static ranking; subjective weights; compensatory aggregation; resources only when combined with optimisation & \cite{ozcan2021,bulut2021,panwar2021,bahrami2021,enjavimadar2022,moradi2024,rios2025} \\
-\hline
-Risk and FMEA & Familiar to maintenance teams; consistent with RCM; links severity and likelihood & Ordinal scores; ranks risks rather than interventions; resources rarely considered & \cite{bahadir2026,qiu2026,shaulagara2023,zhou2024,hedayatnia2025} \\
-\hline
-Hybrid with ML & Uses condition data; can be updated as new data arrive & Needs large labelled histories; labels are proxies or past decisions; predictive part hard to explain & \cite{tang2026,darko2026,astepe2021,wehbi2026,danach2026,rios2024,wittbrodt2026} \\
-\hline
-Optimisation and scheduling & Handles crews, budgets and time windows; scales to large instances & Priorities given a priori or hidden in costs; many assumed parameters; metaheuristics and DRL hard to explain & \cite{schulze2022,geng2022,woller2023,gao2024,bi2022,dui2025,dui2026,li2027} \\
-\hline
-Simulation and industrial practice & Grounded in production impact; implemented in real plants & Specific to one line or plant; hard to generalise; evaluation without control & \cite{yang2021,gopalakrishnan2022,delgado2026,hall2021} \\
-\hline
-\end{tabular}
-\end{table}
+The studies fall into five families according to the method at the core of the prioritisation: MCDM, risk and FMEA, hybrid approaches with ML, optimisation and scheduling, and simulation or industrial practice (Table~\ref{tab:families}, Appendix~\ref{app:figures}). None is better in every respect. MCDM and risk-based methods are transparent and work with expert knowledge alone, but they produce a static ranking that ignores resources unless coupled with optimisation. Optimisation handles resources and time but usually receives the priorities as given. Hybrid approaches use condition data but depend on large histories and add components the user cannot inspect. Studies grounded in industrial practice measure the effect on production but are specific to one line or plant and are hard to generalise.
 
 \subsection{Gaps}
 \label{sec:gaps}

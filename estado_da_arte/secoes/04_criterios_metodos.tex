@@ -6,37 +6,9 @@ This section addresses RQ1 and RQ2: the criteria used to rank maintenance interv
 \subsection{Prioritisation Criteria}
 \label{sec:prio-criteria}
 
-The criteria were grouped into eight categories (Table~\ref{tab:criteria-use}). Only criteria that actually enter the decision model were counted; several authors mention factors they could not use because the data did not exist~\cite{tang2026,wehbi2026,rios2025,wittbrodt2026,geng2022}.
+The criteria were grouped into eight categories (Table~\ref{tab:criteria-use}, Appendix~\ref{app:figures}). Only criteria that actually enter the decision model were counted; several authors mention factors they could not use because the data did not exist~\cite{tang2026,wehbi2026,rios2025,wittbrodt2026,geng2022}.
 
-\begin{table}[!htbp]
-\centering
-\caption{Prioritisation criteria used in the included studies ($n$ = number of studies).}
-\label{tab:criteria-use}
-\scriptsize
-\begin{tabular}{|>{\raggedright\arraybackslash}p{2.3cm}|>{\raggedright\arraybackslash}p{3.6cm}|>{\raggedright\arraybackslash}p{3.9cm}|c|}
-\hline
-\textbf{Category} & \textbf{Typical indicators} & \textbf{Studies} & $\boldsymbol{n}$ \\
-\hline
-Resources and operational constraints & Crews, skills, man-hours, budget, spare parts, downtime windows, travel & \cite{ozcan2021,bulut2021,panwar2021,darko2026,rios2025,rios2024,schulze2022,enjavimadar2022,moradi2024,geng2022,woller2023,gao2024,wehbi2026,wittbrodt2026,danach2026,bi2022,li2027,zhou2024,dui2025} & 19 \\
-\hline
-Likelihood of failure & Occurrence, failure rate, MTBF, number of past failures & \cite{ozcan2021,bulut2021,delgado2026,panwar2021,bahadir2026,gopalakrishnan2022,rios2025,enjavimadar2022,moradi2024,qiu2026,hall2021,zhou2024,danach2026,astepe2021,darko2026,dui2026} & 16 \\
-\hline
-Production or service impact & Downtime, bottlenecks, OEE, line efficiency, energy not supplied, SAIFI, SAIDI & \cite{yang2021,gopalakrishnan2022,panwar2021,rios2025,wittbrodt2026,danach2026,geng2022,bahrami2021,enjavimadar2022,moradi2024,shaulagara2023,zhou2024,hedayatnia2025,hall2021,dui2025,dui2026} & 16 \\
-\hline
-Cost & Intervention cost, downtime and interruption cost, financial risk & \cite{darko2026,schulze2022,enjavimadar2022,moradi2024,geng2022,woller2023,wittbrodt2026,danach2026,zhou2024,bahadir2026,shaulagara2023,dui2025,dui2026,bahrami2021,wehbi2026} & 15 \\
-\hline
-Condition, degradation and RUL & Sensor-based health indices, wear, corrosion, predicted RUL & \cite{tang2026,darko2026,schulze2022,rios2024,geng2022,hedayatnia2025,wittbrodt2026,danach2026,dui2025,bi2022,shaulagara2023,zhou2024,rios2025,wehbi2026} & 14 \\
-\hline
-Detectability & Detection of the failure before it causes damage & \cite{ozcan2021,bulut2021,delgado2026,panwar2021,rios2025,enjavimadar2022,moradi2024,qiu2026,hall2021} & 9 \\
-\hline
-Asset importance & Criticality class, importance measures, regulatory requirements & \cite{astepe2021,rios2024,hedayatnia2025,dui2025,dui2026,wittbrodt2026,moradi2024,gao2024,geng2022} & 9 \\
-\hline
-Safety and environment & Risk to people, explosion, environmental damage & \cite{panwar2021,bahadir2026,rios2025,delgado2026,hall2021,shaulagara2023,enjavimadar2022} & 7 \\
-\hline
-\end{tabular}
-\end{table}
-
-The most frequent category is not a property of the equipment but the resources available to maintain it: in 19 studies, priority depends on crews, budget, man-hours or downtime windows, so prioritisation is often treated as the allocation of scarce resources rather than as a ranking in isolation. Failure likelihood and production or service impact follow, with 16 studies each; in power networks, impact is measured through SAIFI, SAIDI or energy not supplied and then converted into a cost~\cite{bahrami2021,enjavimadar2022,moradi2024,zhou2024,shaulagara2023}. Condition-based criteria appear in 14 studies, all published from 2022 onwards. Safety is the least represented category: it is explicit in only seven studies, while in others it is a level within a broader ``consequences'' criterion~\cite{ozcan2021,bulut2021} or is deliberately excluded~\cite{yang2021}.
+The most frequent category is not a property of the equipment but the resources available to maintain it: in 19 studies, priority depends on crews, budget, man-hours or downtime windows, so prioritisation is often treated as the allocation of scarce resources rather than as a ranking in isolation. Failure likelihood and production or service impact follow, with 16 studies each. Condition-based criteria appear in 14 studies, all published from 2022 onwards. Safety is the least represented category: it is explicit in only seven studies, while in others it is a level within a broader ``consequences'' criterion~\cite{ozcan2021,bulut2021} or is deliberately excluded~\cite{yang2021}.
 
 \subsection{Criticality Analysis and FMEA}
 \label{sec:fmea}
@@ -46,11 +18,11 @@ Criticality analysis ranks assets or failure modes by combining severity and lik
 \subsection{Multi-Criteria Decision-Making Methods}
 \label{sec:mcdm}
 
-MCDM methods serve two tasks. For \textbf{weighting}, AHP derives weights from pairwise comparisons and checks their consistency~\cite{ozcan2021,bulut2021,panwar2021,zhou2024}; the check matters, since only four of sixteen expert questionnaires were consistent in the group AHP of Rios et al.~\cite{rios2025}. BWM, which needs fewer comparisons, was used mainly in power distribution~\cite{enjavimadar2022,moradi2024,bahrami2021}. Other studies assume equal weights~\cite{delgado2026,darko2026,wehbi2026}, tune them against validation metrics~\cite{tang2026} or do not report them~\cite{enjavimadar2022,wittbrodt2026}. For \textbf{ranking}, TOPSIS, which orders alternatives by their closeness to an ideal solution, is the most frequent method~\cite{ozcan2021,bulut2021,bahrami2021,moradi2024}, followed by PROMETHEE~II~\cite{ozcan2021,panwar2021}; grey relational analysis~\cite{enjavimadar2022} and MABAC~\cite{tang2026} appear once, and weighted sums are used for simple indices~\cite{hedayatnia2025,wehbi2026,darko2026}. VIKOR and ELECTRE were not used. Fuzzy variants, from fuzzy AHP and BWM to cloud models and picture or spherical fuzzy sets~\cite{wittbrodt2026,bahrami2021,panwar2021,bahadir2026,qiu2026}, capture vague judgements and disagreement between experts, at the cost of many parameters fixed by the authors.
+MCDM methods serve two tasks. For \textbf{weighting}, AHP derives weights from pairwise comparisons and checks their consistency~\cite{ozcan2021,bulut2021,panwar2021,zhou2024}; the check matters, since only four of sixteen expert questionnaires were consistent in the group AHP of Rios et al.~\cite{rios2025}. BWM, which needs fewer comparisons, was used mainly in power distribution~\cite{enjavimadar2022,moradi2024,bahrami2021}. Other studies assume equal weights~\cite{delgado2026,darko2026,wehbi2026}, tune them against validation metrics~\cite{tang2026} or do not report them~\cite{enjavimadar2022,wittbrodt2026}. For \textbf{ranking}, TOPSIS, which orders alternatives by their closeness to an ideal solution, is the most frequent method~\cite{ozcan2021,bulut2021,bahrami2021,moradi2024}, followed by PROMETHEE~II~\cite{ozcan2021,panwar2021}; grey relational analysis~\cite{enjavimadar2022} and MABAC~\cite{tang2026} appear once, and weighted sums are used for simple indices~\cite{hedayatnia2025,wehbi2026,darko2026}. VIKOR and ELECTRE were not used. Fuzzy variants~\cite{wittbrodt2026,bahrami2021,panwar2021,bahadir2026,qiu2026} capture vague judgements and expert disagreement but add many parameters fixed by the authors.
 
 \subsection{Optimisation, Scheduling and Machine Learning}
 \label{sec:optimisation}
 
 A ranking does not say which interventions fit the available resources or when to perform them. Fifteen studies add an optimisation model. Mixed-integer linear programming (MILP) assigns strategies to failure modes under budget, outage and crew constraints~\cite{enjavimadar2022,moradi2024}, schedules asset fleets~\cite{schulze2022}, allocates technicians~\cite{gao2024} or plans over a rolling horizon~\cite{danach2026}; smaller integer models select what to repair within a man-hour or budget limit~\cite{rios2025,rios2024,darko2026}. Larger problems use metaheuristics: adaptive large neighbourhood search~\cite{woller2023,wehbi2026}, particle swarm optimisation~\cite{bi2022,dui2026}, a multi-objective genetic algorithm~\cite{dui2025} and a two-phase time-window algorithm~\cite{geng2022}. Li et al.~\cite{li2027} are the only authors to use deep reinforcement learning (DRL). Priority enters these models either as a coefficient of the objective, which allows trade-offs~\cite{rios2025,danach2026,darko2026}, or as a constraint that guarantees an order at the cost of efficiency~\cite{gao2024,geng2022,dui2025,dui2026}.
 
-Machine learning (ML) mostly estimates an input to the prioritisation, such as failure probability, RUL or a risk score~\cite{darko2026,danach2026,dui2025,rios2024,tang2026,wittbrodt2026}. Astepe and Alkara~\cite{astepe2021} instead learn the priority directly from past expert decisions, which avoids explicit weights but reproduces any bias in those decisions. Finally, two studies rank machines by their effect on production, through sensitivity analysis on a line simulation~\cite{yang2021} or bottleneck detection on manufacturing execution system (MES) data~\cite{gopalakrishnan2022}. Across the sample, methods are rarely used alone: a typical study chains weighting, ranking and, increasingly, prediction or optimisation.
+Machine learning (ML) mostly estimates an input to the prioritisation, such as failure probability, RUL or a risk score~\cite{darko2026,danach2026,dui2025,rios2024,tang2026,wittbrodt2026}. Astepe and Alkara~\cite{astepe2021} instead learn the priority directly from past expert decisions, which avoids explicit weights but reproduces any bias in those decisions. Finally, two studies rank machines by their effect on production, through sensitivity analysis on a line simulation~\cite{yang2021} or bottleneck detection on manufacturing execution system (MES) data~\cite{gopalakrishnan2022}. Most studies chain several of these methods.

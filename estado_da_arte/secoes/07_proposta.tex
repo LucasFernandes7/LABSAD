@@ -6,81 +6,25 @@ We propose a decision support system that helps the maintenance manager decide t
 \subsection{System Context}
 \label{sec:context}
 
-\begin{itemize}
-  \item \textbf{Target users.} The main user is the maintenance manager or planner. Production and safety managers take part in defining the importance of the criteria.
-  \item \textbf{Type of problem.} Semi-structured: part of the information is quantitative (condition data, costs, repair times) and part depends on expert judgement.
-  \item \textbf{Synchronous and asynchronous decision.} The ranking is produced asynchronously, at the start of each shift, and recomputed whenever an urgent failure is reported. The definition of weights is a synchronous group activity, repeated when priorities in the plant change.
-  \item \textbf{Criteria.} Safety risk is mandatory and cannot be relaxed: interventions with a risk to people are always placed first. Failure probability, production impact, cost, intervention duration and availability of technicians and spare parts can be relaxed and compensate each other.
-  \item \textbf{Social aspects.} Maintenance, production and safety staff have different priorities. Each states its own judgements, and the system aggregates them and shows where they diverge.
-  \item \textbf{Sensors.} Condition data such as temperature, vibration and torque feed the failure prediction. The prototype will use a public predictive maintenance dataset; validation with real plant data is planned as future work.
-  \item \textbf{Interface.} A web application showing the ranking, the explanation of each position and a what-if view where the user changes the weights and sees the effect on the ranking.
-  \item \textbf{Technologies.} Machine learning to estimate failure probability, AHP to derive the weights, and TOPSIS to rank the interventions.
-\end{itemize}
+The main user is the maintenance manager or planner, while production and safety managers take part in defining the importance of the criteria. The problem is semi-structured: part of the information is quantitative (condition data, costs, repair times) and part depends on expert judgement. The ranking is produced asynchronously, at the start of each shift, and recomputed whenever an urgent failure is reported; the definition of weights is a synchronous group activity, repeated when priorities in the plant change. Safety risk is a mandatory criterion that cannot be relaxed, so interventions with a risk to people are always placed first. Failure probability, production impact, cost, intervention duration and availability of technicians and spare parts can be relaxed and compensate each other. Each stakeholder group states its own judgements, which the system aggregates while showing where they diverge. Condition data (voltage, rotation, pressure and vibration in the prototype) feed the failure prediction. The interface is a web application that shows the ranking, the explanation of each position and a what-if view in which the user changes the weights and sees the effect on the ranking.
 
 \subsection{Requirements}
 \label{sec:requirements}
 
-Table~\ref{tab:requirements} lists the functional (FR) and non-functional (NFR) requirements and, where applicable, the gap from Section~\ref{sec:gaps} that each one addresses.
-
-\begin{table}[!htbp]
-\centering
-\caption{Functional and non-functional requirements of the proposed system.}
-\label{tab:requirements}
-\scriptsize
-\begin{tabular}{|p{0.9cm}|>{\raggedright\arraybackslash}p{9.0cm}|c|}
-\hline
-\textbf{ID} & \textbf{Requirement} & \textbf{Gap} \\
-\hline
-FR01 & Import pending interventions, equipment data and work orders (e.g., from CSV files or a CMMS). & -- \\
-FR02 & Estimate the failure probability of each asset from its condition data. & -- \\
-FR03 & Let each stakeholder define the importance of the criteria through pairwise comparisons, warn when judgements are inconsistent (\textit{CR} $\geq 0.1$) and aggregate the judgements of all stakeholders. & G4, G5 \\
-FR04 & Place every intervention with a safety risk at the top of the list, regardless of the other criteria. & G1 \\
-FR05 & Rank the remaining pending interventions and recompute the ranking when new data or failures arrive. & G3 \\
-FR06 & Explain each position by showing the contribution of each criterion. & G5 \\
-FR07 & Show how the ranking changes when the weights are changed (sensitivity analysis). & G4 \\
-FR08 & Store each ranking, the decision taken and, later, its outcome. & G6 \\
-\hline
-NFR01 & Performance: produce the ranking in a few seconds for a few hundred interventions. & -- \\
-NFR02 & Usability: be understandable by users without knowledge of MCDM methods. & -- \\
-NFR03 & Transparency: no recommendation is shown without its justification. & G5 \\
-NFR04 & Interoperability: import data in common formats and allow connection to a CMMS. & -- \\
-NFR05 & Security: require authentication, with separate profiles for managers and other users. & -- \\
-\hline
-\end{tabular}
-\end{table}
+Table~\ref{tab:requirements} (Appendix~\ref{app:figures}) lists eight functional (FR) and five non-functional (NFR) requirements and the gap from Section~\ref{sec:gaps} that each one addresses. The functional requirements cover data import, failure prediction, group elicitation of weights with a consistency warning, the safety constraint, ranking and re-ranking, explanation, sensitivity analysis and the record of decisions; the non-functional ones concern performance, usability, transparency, interoperability and security.
 
 \subsection{Conceptual Architecture}
 \label{sec:architecture}
 
-The architecture (Fig.~\ref{fig:arquitetura}) has five modules. The \textbf{data module} collects condition data, work orders, costs and stock levels. The \textbf{predictive module} estimates the failure probability of each asset with a machine learning model. The \textbf{weighting module} collects the pairwise comparisons of each stakeholder, checks their consistency and aggregates them into a single set of AHP weights. The \textbf{decision module} first separates the interventions that involve a safety risk and then ranks all interventions with TOPSIS, keeping the safety-critical ones at the top. The \textbf{interface} presents the ranking, the explanation of each position and the sensitivity analysis, and records the decision taken, which feeds back into the data module.
+The architecture (Fig.~\ref{fig:arquitetura}, Appendix~\ref{app:figures}) has five modules. The \textbf{data module} collects condition data, work orders, costs and stock levels. The \textbf{predictive module} estimates the failure probability of each asset with a machine learning model. The \textbf{weighting module} collects the pairwise comparisons of each stakeholder, checks their consistency and aggregates them into a single set of AHP weights. The \textbf{decision module} first separates the interventions that involve a safety risk and then ranks all interventions with TOPSIS, keeping the safety-critical ones at the top. The \textbf{interface} presents the ranking, the explanation of each position and the sensitivity analysis, and records the decision taken, which feeds back into the data module.
 
+Keeping the predictive and decision modules separate allows the prediction model to be replaced without changing the prioritisation logic, as in the hybrid studies of Section~\ref{sec:criteria-methods}. AHP was chosen because it is widely used in the reviewed studies, checks the consistency of judgements and supports group elicitation; the consistency warning in FR03 follows the low share of consistent expert judgements reported in Section~\ref{sec:mcdm}. TOPSIS was chosen because it is the most frequent ranking method in the sample and its result is easy to explain as the closeness of each intervention to an ideal one. Treating safety as a constraint rather than a weight prevents a risk to people from being offset by gains in other criteria, which is the main weakness found in the compensatory models reviewed.
 
+\subsection{Dataset}
+\label{sec:dataset}
 
-These choices respond directly to the review. Keeping the predictive and decision modules separate allows the prediction model to be replaced without changing the prioritisation logic, as in the hybrid studies of Section~\ref{sec:criteria-methods}. AHP was chosen because it is widely used in the reviewed studies, checks the consistency of judgements and supports group elicitation; the consistency warning in FR03 follows the low share of consistent expert judgements reported in Section~\ref{sec:mcdm}. TOPSIS was chosen because it is the most frequent ranking method in the sample and its result is easy to explain as the closeness of each intervention to an ideal one. Treating safety as a constraint rather than a weight prevents a risk to people from being offset by gains in other criteria, which is the main weakness found in the compensatory models reviewed.
+The predictive module will be developed on the Microsoft Azure Predictive Maintenance dataset\footnote{\texttt{kaggle.com/datasets/arnabbiswas1/microsoft-azure-predictive-maintenance}}, a public, simulated dataset. It covers 100 machines of four models, aged 0 to 20 years, and contains hourly averages of voltage, rotation, pressure and vibration for 2015 (876,100 records), 3,919 non-critical errors of five types, 3,286 replacements of four components and 761 failures. The data have no missing values or duplicates.
 
-\begin{figure}[H]
-\centering
-\begin{tikzpicture}[
-  font=\scriptsize,
-  box/.style={draw, rounded corners=2pt, align=center, minimum height=0.95cm, text width=1.95cm},
-  src/.style={draw, dashed, align=center, minimum height=0.6cm, text width=1.95cm},
-  arr/.style={-{Stealth[length=2mm]}, thick}
-]
-\node[src] (sources) at (0,0) {Sensors, work orders, costs, stock};
-\node[box] (data)  at (2.45,0) {\textbf{Data module}\\ cleaning,\\ integration};
-\node[box] (pred)  at (4.9,0) {\textbf{Predictive module}\\ failure\\ probability (ML)};
-\node[box] (dec)   at (7.35,0) {\textbf{Decision module}\\ 1.\ safety constraint\\ 2.\ TOPSIS ranking};
-\node[box] (ui)    at (9.8,0) {\textbf{Interface}\\ ranking,\\ explanation,\\ what-if};
-\node[src] (stake) at (4.9,-2.2) {Maintenance, production, safety staff};
-\node[box] (w)     at (7.35,-2.2) {\textbf{Weighting module}\\ AHP, consistency, aggregation};
-\draw[arr] (sources) -- (data);
-\draw[arr] (data) -- (pred);
-\draw[arr] (pred) -- (dec);
-\draw[arr] (dec) -- (ui);
-\draw[arr] (stake) -- (w);
-\draw[arr] (w) -- (dec);
-\draw[arr, dashed] (ui.north) -- ++(0,0.55) -| node[pos=0.25, above] {decision history} (data.north);
-\end{tikzpicture}
-\caption{Conceptual architecture of the proposed system.}
-\label{fig:arquitetura}
-\end{figure}
+The exploratory analysis (Appendix~\ref{app:eda}) shows that each component has its own sensor signature about 48 hours before a failure, that failures are more frequent in older machines and in machines with more errors, and that only 2\% of machine-hours precede a failure within 24 hours, which implies strong class imbalance.
+
+In the prototype, each pending intervention is the replacement of one component in one machine. The predictive module estimates the probability that the component fails within the next 24 hours from rolling sensor statistics, error counts, time since the last replacement, and machine age and model. Cost, duration, production impact and safety risk are not in the data and will be assigned per component and machine model as stated assumptions. Because the data are simulated, the prototype can show that the system works as designed, but not that it improves maintenance in a real plant; that evaluation remains future work (G6).

@@ -20,44 +20,14 @@ IEEE Xplore: ("Document Title":maintenance) AND ("Abstract":prioriti* OR "Abstra
 Web of Science: TI=(maintenance) AND AB=(prioriti* OR priority OR criticality OR "decision support" OR "multi-criteria" OR AHP OR TOPSIS) AND AB=(industr* OR manufactur* OR equipment) AND PY=(2021-2026)
 \end{quote}
 
-Both searches were run on 19 October 2026 and limited to 2021--2026; one study published online in 2026 appears in a 2027 journal issue~\cite{li2027}. In Web of Science, results were limited to articles, proceedings papers and early access items in English, within ten engineering, operations research, management and computer science categories, which reduced them from 582 to 385. IEEE Xplore returned 169 records.
+The search string was developed and tested from 15 October 2026, and the final searches were run on 19 October 2026, limited to 2021--2026, one study published online in 2026 appears in a 2027 journal issue~\cite{li2027}. In Web of Science, results were limited to articles, proceedings papers and early access items in English, within ten engineering, operations research, management and computer science categories, which reduced them from 582 to 385. IEEE Xplore returned 169 records.
 
-A study was included if it was a peer-reviewed journal or conference paper, published between 2021 and 2026, written in English, proposing or applying a prioritisation or decision method for maintenance interventions in an industrial context, and presenting some form of evaluation. Studies were excluded for any of the reasons in Table~\ref{tab:criteria}. Criterion E8 was added during screening, and E9 and E10 were defined after data extraction and before synthesis, to focus the review on its central problem and on evidence from real settings. Both were applied in the same way to every study read in full.
-
-\begin{table}[!htbp]
-\centering
-\caption{Exclusion criteria.}
-\label{tab:criteria}
-\scriptsize
-\begin{tabular}{|c|>{\raggedright\arraybackslash}p{10.2cm}|}
-\hline
-\textbf{Code} & \textbf{Criterion} \\
-\hline
-E1 & Duplicate record. \\
-E2 & Not a peer-reviewed primary study (review, survey, editorial or preprint). \\
-E3 & Outside the industrial context (e.g., healthcare, buildings, civil infrastructure, IT maintenance). \\
-E4 & Only failure prediction, detection or diagnosis, with no decision component. \\
-E5 & No evaluation of any kind. \\
-E6 & Insufficient methodological detail. \\
-E7 & Full text not accessible. \\
-E8 & Maintenance management without decisions on interventions or assets (e.g., skills, barriers, KPIs). \\
-E9 & The decision is not the prioritisation, selection or scheduling of interventions or assets (e.g., strategy selection, interval optimisation, joint production and maintenance scheduling). \\
-E10 & Not applied to real data or an industrial case with a comparison against current practice, another method or a before/after measurement. \\
-\hline
-\end{tabular}
-\end{table}
+A study was included if it was a peer-reviewed journal or conference paper, published between 2021 and 2026, written in English, proposing or applying a prioritisation or decision method for maintenance interventions in an industrial context, and presenting some form of evaluation. Studies were excluded for any of the reasons listed in Table~\ref{tab:criteria} (Appendix~\ref{app:figures}). The exclusion criteria were refined iteratively as the review progressed, with E8, E9 and E10 added to focus it on its central problem and on evidence from real settings. All criteria were applied in the same way to every study.
 
 \subsection{Study Selection and Data Extraction}
 \label{sec:selection}
 
-Fig.~\ref{fig:prisma} summarises the selection. Of the 554 records retrieved, 45 duplicates were removed by DOI and normalised title. The remaining 509 were screened by title and abstract, a stage that excluded 233 records, mostly under E8 ($n=108$) and E3 ($n=59$). Of the 276 reports sought, 47 could not be accessed (E7). After full-text reading of the remaining 229, a further 198 were excluded, mainly under E9 ($n=60$) and E10 ($n=62$), leaving 31 studies.
-
-\begin{figure}[!htbp]
-\centering
-\includegraphics[width=0.55\textwidth]{figuras/prisma.png}
-\caption{PRISMA 2020 flow diagram of the study selection.}
-\label{fig:prisma}
-\end{figure}
+The selection is summarised in the PRISMA diagram of Fig.~\ref{fig:prisma} (Appendix~\ref{app:figures}). Of the 554 records retrieved, 45 duplicates were removed by DOI and normalised title. The remaining 509 were screened by title and abstract, a stage that excluded 233 records, mostly under E8 ($n=108$) and E3 ($n=59$). Of the 276 reports sought, 47 could not be accessed (E7). After full-text assessment of the remaining 229, a further 198 were excluded, mainly under E9 ($n=60$) and E10 ($n=62$), leaving 31 studies.
 
 \label{sec:extraction}
 For each included study, an extraction form recorded the sector, the prioritisation criteria (RQ1), the decision method and the origin of the weights (RQ2), the architecture and data sources (RQ3), the validation design and results, the limitations (RQ4) and whether the system explains its recommendations. A large language model produced a first classification at screening and a first version of each form; every decision and value was then checked against the original article by one of the authors.
@@ -65,4 +35,4 @@ For each included study, an extraction form recorded the sector, the prioritisat
 \subsection{Limitations of the Review}
 \label{sec:review-limitations}
 
-Only two databases were searched, and requiring \textit{maintenance} in the title may have missed studies that mention it only in the abstract. Defining E9 and E10 after extraction introduces a risk of selection bias, although both were applied uniformly and are documented in Table~\ref{tab:criteria}. Finally, 47 reports could not be retrieved, and the use of a language model was mitigated by having every output verified by the authors.
+Only two databases were searched, and requiring \textit{maintenance} in the title may have missed studies that mention it only in the abstract. The iterative refinement of the criteria may introduce some selection bias, although all criteria were applied uniformly and are documented in Table~\ref{tab:criteria}. Finally, 47 reports could not be retrieved, and the use of a language model was mitigated by having every output verified by the authors.
